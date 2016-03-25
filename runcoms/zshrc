@@ -10,4 +10,42 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# ##########################
 # Customize to your needs...
+# ##########################
+
+# so you can use bash-complete
+autoload bashcompinit
+bashcompinit
+
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
+export MANPATH="/usr/local/man:$MANPATH"
+
+ninit () {
+  export NVM_DIR=~/.nvm
+
+  source $(brew --prefix nvm)/nvm.sh
+
+  source n.sh
+}
+
+. rmapp
+
+# #######
+# aliases
+# #######
+
+alias v=vim
+# alias vim=nvim
+
+alias gaa="git add --all"
+alias gd="git diff"
+alias gdH="git diff HEAD"
+alias gst="git status"
+
+alias brews='brew list -1'
+alias brewi='brew instal'
+alias cask='brew cask'
+alias bubo='brew update && brew outdated'
+alias bubc='brew upgrade && brew cleanup'
+alias bubu='bubo && bubc'
