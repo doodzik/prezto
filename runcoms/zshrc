@@ -31,8 +31,6 @@ ninit () {
 
 . rmapp
 
-EDITOR=vim
-
 # #######
 # aliases
 # #######
@@ -52,40 +50,56 @@ alias bubo='brew update && brew outdated'
 alias bubc='brew upgrade && brew cleanup'
 alias bubu='bubo && bubc'
 
-T_FILE=todo
-T_DIR=~/iCloud/.todos/
+EDITOR=vim
+T_EXT=.txt
+T_FILE="todo${T_EXT}"
+# Library/Mobile Documents/com~apple~CloudDocs
+T_DIR=~/iCloud/todos/
 
 t () {
-  touch $T_DIR$T_FILE
+  TASK=$T_DIR$T_FILE
+  touch $TASK
   re='^[0-9]+$'
   if [[ $1 =~ $re ]] ; then
-   sed -i '' "${1}d" $T_DIR$T_FILE
+   T_LAST_DONE=$(sed $1"q;d" $TASK)
+   sed -i '' "${1}d" $TASK
    t
   elif [[ "$1" ]]; then
-   echo $@ >> $T_DIR$T_FILE
+   echo $@ >> $TASK
    t
   else
-    echo $T_FILE
-    cat -n $T_DIR$T_FILE
+    echo $T_FILE | sed -e 's/\..*$//'
+    cat -n $TASK
   fi
 }
 
 tl () {
   if [[ $1 ]] ; then
+    LIST_FILE=$1$T_EXT
+    LIST=$T_DIR$LIST_FILE
+    touch $LIST
     if [[ $2 == "d" ]] ; then
-      rm $T_DIR$1
+      rm $LIST
       tl
+    elif [[ $2 == "o" ]] ; then
+      $EDITOR $LIST
+    elif [[ $2 == "mv" ]] ; then
+      if [[ $3 ]] ; then
+        LIST_NEW=$T_DIR$3$T_EXT
+        mv $LIST $LIST_NEW
+      else
+        echo "tl $1 mv [new name]"
+      fi
     else
-      touch $T_DIR$1
-      T_FILE=$1
+      T_FILE=$LIST_FILE
     fi
   else
-    ls -1 $T_DIR
+    ls -1 $T_DIR | sed -e 's/\..*$//'
   fi
 }
 
 _tl_complete () {
-  ls $T_DIR
+  ls $T_DIR | sed -e 's/\..*$//'
 }
 
 _t_complete () {
