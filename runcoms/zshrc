@@ -31,6 +31,8 @@ ninit () {
 
 . rmapp
 
+EDITOR=vim
+
 # #######
 # aliases
 # #######
@@ -49,3 +51,46 @@ alias cask='brew cask'
 alias bubo='brew update && brew outdated'
 alias bubc='brew upgrade && brew cleanup'
 alias bubu='bubo && bubc'
+
+T_FILE=todo
+T_DIR=~/iCloud/.todos/
+
+t () {
+  touch $T_DIR$T_FILE
+  re='^[0-9]+$'
+  if [[ $1 =~ $re ]] ; then
+   sed -i '' "${1}d" $T_DIR$T_FILE
+   t
+  elif [[ "$1" ]]; then
+   echo $@ >> $T_DIR$T_FILE
+   t
+  else
+    echo $T_FILE
+    cat -n $T_DIR$T_FILE
+  fi
+}
+
+tl () {
+  if [[ $1 ]] ; then
+    if [[ $2 == "d" ]] ; then
+      rm $T_DIR$1
+      tl
+    else
+      touch $T_DIR$1
+      T_FILE=$1
+    fi
+  else
+    ls -1 $T_DIR
+  fi
+}
+
+_tl_complete () {
+  ls $T_DIR
+}
+
+_t_complete () {
+  cat -n $T_DIR$T_FILE | awk '{$1=$1;print}'
+}
+
+complete -F _t_complete t
+complete -F _tl_complete tl
