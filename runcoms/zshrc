@@ -57,6 +57,8 @@ T_FILE="todo${T_EXT}"
 T_DIR=~/iCloud/todos/
 
 t () {
+  # $1 == Int task to be marked done
+  # $1 task to be added
   TASK=$T_DIR$T_FILE
   touch $TASK
   re='^[0-9]+$'
@@ -74,6 +76,8 @@ t () {
 }
 
 tl () {
+  # $1 task_list
+  # $2 command
   if [[ $1 ]] ; then
     LIST_FILE=$1$T_EXT
     LIST=$T_DIR$LIST_FILE
@@ -92,6 +96,7 @@ tl () {
       fi
     else
       T_FILE=$LIST_FILE
+      t
     fi
   else
     ls -1 $T_DIR | sed -e 's/\..*$//'
