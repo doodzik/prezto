@@ -3,6 +3,7 @@
 #
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   Frederik Dudzik
 #
 
 # Source Prezto.
@@ -10,33 +11,41 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# ##########################
-# Customize to your needs...
-# ##########################
+# ##########
+# Functions
+# ##########
 
-# so you can use bash-complete
-autoload bashcompinit
-bashcompinit
-
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
-export MANPATH="/usr/local/man:$MANPATH"
-
-ninit () {
-  export NVM_DIR=~/.nvm
-
-  source $(brew --prefix nvm)/nvm.sh
-
-  source n.sh
+function join { 
+  local IFS="$1"; shift; echo "$*"; 
 }
 
-. rmapp
+# #########
+# VARIABLES
+# #########
+
+PATHS=(
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/bin
+  /bin
+  /usr/sbin
+  /sbin
+)
+
+export PATH=$(join : ${PATHS[@]})
+
+export EDITOR=vim
+export MANPATH="/usr/local/man:$MANPATH"
+export NVM_DIR=~/.nvm
+export T_EXT=.txt
+export T_FILE="todo${T_EXT}"
+export T_DIR=~/iCloud/todos/
 
 # #######
 # aliases
 # #######
 
 alias v=vim
-# alias vim=nvim
 
 alias gaa="git add --all"
 alias gd="git diff"
@@ -50,66 +59,16 @@ alias bubo='brew update && brew outdated'
 alias bubc='brew upgrade && brew cleanup'
 alias bubu='bubo && bubc'
 
-EDITOR=vim
-T_EXT=.txt
-T_FILE="todo${T_EXT}"
-# Library/Mobile Documents/com~apple~CloudDocs
-T_DIR=~/iCloud/todos/
+alias t=simple_task
+alias tl=simple_task_list
 
-t () {
-  # $1 == Int task to be marked done
-  # $1 task to be added
-  TASK=$T_DIR$T_FILE
-  touch $TASK
-  re='^[0-9]+$'
-  if [[ $1 =~ $re ]] ; then
-   T_LAST_DONE=$(sed $1"q;d" $TASK)
-   sed -i '' "${1}d" $TASK
-   t
-  elif [[ "$1" ]]; then
-   echo $@ >> $TASK
-   t
-  else
-    echo $T_FILE | sed -e 's/\..*$//'
-    cat -n $TASK
-  fi
-}
+# ############
+# autocomplete
+# ############
 
-tl () {
-  # $1 task_list
-  # $2 command
-  if [[ $1 ]] ; then
-    LIST_FILE=$1$T_EXT
-    LIST=$T_DIR$LIST_FILE
-    touch $LIST
-    if [[ $2 == "d" ]] ; then
-      rm $LIST
-      tl
-    elif [[ $2 == "o" ]] ; then
-      $EDITOR $LIST
-    elif [[ $2 == "mv" ]] ; then
-      if [[ $3 ]] ; then
-        LIST_NEW=$T_DIR$3$T_EXT
-        mv $LIST $LIST_NEW
-      else
-        echo "tl $1 mv [new name]"
-      fi
-    else
-      T_FILE=$LIST_FILE
-      t
-    fi
-  else
-    ls -1 $T_DIR | sed -e 's/\..*$//'
-  fi
-}
+autoload bashcompinit
+bashcompinit
 
-_tl_complete () {
-  ls $T_DIR | sed -e 's/\..*$//'
-}
-
-_t_complete () {
-  cat -n $T_DIR$T_FILE | awk '{$1=$1;print}'
-}
-
-complete -F _t_complete t
-complete -F _tl_complete tl
+complete -F rmapp_app_list rmapp
+complete -F _simple_task_complete simple_task
+complete -F _simple_task_list_complete simple_task_list
