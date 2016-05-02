@@ -11,14 +11,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# ##########
-# Functions
-# ##########
-
-function join { 
-  local IFS="$1"; shift; echo "$*"; 
-}
-
 # #########
 # VARIABLES
 # #########
@@ -37,8 +29,6 @@ export PATH=$(join : ${PATHS[@]})
 export EDITOR=vim
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR=~/.nvm
-export T_EXT=.txt
-export T_FILE="todo${T_EXT}"
 export T_DIR=~/iCloud/todos/
 
 # #######
@@ -53,11 +43,12 @@ alias gdH="git diff HEAD"
 alias gst="git status"
 
 alias brews='brew list -1'
-alias brewi='brew instal'
 alias cask='brew cask'
 alias bubo='brew update && brew outdated'
 alias bubc='brew upgrade && brew cleanup'
 alias bubu='bubo && bubc'
+
+alias nint='. ninit'
 
 alias t=simple_task
 alias tl=simple_task_list
@@ -69,6 +60,6 @@ alias tl=simple_task_list
 autoload bashcompinit
 bashcompinit
 
-complete -F rmapp_app_list rmapp
+complete -F _rmapp_app_list rmapp
 complete -F _simple_task_complete simple_task
 complete -F _simple_task_list_complete simple_task_list
