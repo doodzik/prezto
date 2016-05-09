@@ -26,10 +26,11 @@ PATHS=(
 
 export PATH=$(join : ${PATHS[@]})
 
-export EDITOR=vim
+export EDITOR="/usr/local/bin/vim"
+export VISUAL=$EDITOR
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR=~/.nvm
-export T_DIR=~/iCloud/todos/
+export T_DIR=~/Library/Mobile\ Documents/27N4MQEA55~pro~writer/Documents/todo/
 
 # #######
 # aliases
@@ -50,8 +51,10 @@ alias bubu='bubo && bubc'
 
 alias nint='. ninit'
 
+. simple_task_list
+
 alias t=simple_task
-alias tl=simple_task_list
+alias tl=_simple_task_list
 
 # ############
 # autocomplete
