@@ -51,10 +51,12 @@ alias bubu='bubo && bubc'
 
 alias nint='. ninit'
 
-. simple_task_list
+. simple_task_init
 
 alias t=simple_task
-alias tl=_simple_task_list
+alias tl=simple_task_list
+alias tn=simple_task_note
+alias tg='ghi list -g -f assigned'
 
 # ############
 # autocomplete
