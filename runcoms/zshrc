@@ -68,3 +68,12 @@ bashcompinit
 complete -F _rmapp_app_list rmapp
 complete -F _simple_task_complete simple_task
 complete -F _simple_task_list_complete simple_task_list
+
+# #########
+# Functions
+# #########
+
+function take() {
+  mkdir -p $1
+  cd $1
+}
