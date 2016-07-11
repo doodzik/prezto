@@ -30,33 +30,27 @@ export EDITOR="/usr/local/bin/vim"
 export VISUAL=$EDITOR
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR=~/.nvm
-export T_DIR=~/Library/Mobile\ Documents/27N4MQEA55~pro~writer/Documents/todo/
 
 # #######
 # aliases
 # #######
 
 alias v=vim
+alias m=make
 
 alias gaa="git add --all"
 alias gd="git diff"
 alias gdH="git diff HEAD"
 alias gst="git status"
 
+alias gi='ghi list -g -f assigned'
+
+alias bi='brew install'
 alias brews='brew list -1'
 alias cask='brew cask'
 alias bubo='brew update && brew outdated'
 alias bubc='brew upgrade && brew cleanup'
 alias bubu='bubo && bubc'
-
-alias nint='. ninit'
-
-. simple_task_init
-
-alias t=simple_task
-alias tl=simple_task_list
-alias tn=simple_task_note
-alias tg='ghi list -g -f assigned'
 
 # ############
 # autocomplete
@@ -66,8 +60,6 @@ autoload bashcompinit
 bashcompinit
 
 complete -F _rmapp_app_list rmapp
-complete -F _simple_task_complete simple_task
-complete -F _simple_task_list_complete simple_task_list
 
 # #########
 # Functions
@@ -81,3 +73,6 @@ function take() {
 function zsh_stats() {
     fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
+
+# added by travis gem
+[ -f /Users/dudzik/.travis/travis.sh ] && source /Users/dudzik/.travis/travis.sh
