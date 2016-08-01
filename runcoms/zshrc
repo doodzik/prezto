@@ -37,7 +37,6 @@ export NVM_DIR=~/.nvm
 # #######
 
 alias v=vim
-alias m=make
 
 alias gaa="git add --all"
 alias gd="git diff"
