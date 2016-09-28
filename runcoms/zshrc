@@ -65,6 +65,8 @@ complete -F _rmapp_app_list rmapp
 # Functions
 # #########
 
+
+
 function take() {
   mkdir -p $1
   cd $1
@@ -74,5 +76,28 @@ function zsh_stats() {
     fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
 
+# lazy load node
+
+nvm() {
+  unset -f nvm
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+  nvm "$@"
+}
+
+node() {
+  unset -f node
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+  node "$@"
+}
+
+npm() {
+  unset -f npm
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+  npm "$@"
+}
+
 # added by travis gem
-[ -f /Users/dudzik/.travis/travis.sh ] && source /Users/dudzik/.travis/travis.sh
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
