@@ -52,6 +52,26 @@ alias bubo='brew update && brew outdated'
 alias bubc='brew upgrade && brew cleanup'
 alias bubu='bubo && bubc'
 
+# npm aliases
+
+alias n=npm
+
+alias ni="npm install"
+nis () { npm install "$@" --save; }
+nid () { npm install "$@" --save-dev; }
+nig () { npm install "$@" -g; }
+
+nr () {
+   if [ "$2" ]; then
+     npm run "$1" -- "${@:2}";
+   else
+     npm run "$1";
+   fi
+}
+
+alias ns="npm start"
+alias nt="npm test"
+
 # ############
 # autocomplete
 # ############
@@ -64,8 +84,6 @@ complete -F _rmapp_app_list rmapp
 # #########
 # Functions
 # #########
-
-
 
 function take() {
   mkdir -p $1
