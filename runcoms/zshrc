@@ -17,6 +17,7 @@ fi
 
 PATHS=(
   $HOME/.rbenv/shims
+  $HOME/.yarn/bin
   /usr/local/bin
   /usr/local/sbin
   /usr/bin
