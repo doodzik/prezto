@@ -24,6 +24,7 @@ PATHS=(
   /bin
   /usr/sbin
   /sbin
+  /Library/TeX/texbin/
 )
 
 export PATH=$(join : ${PATHS[@]})
