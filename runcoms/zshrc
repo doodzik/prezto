@@ -45,7 +45,8 @@ alias gd="git diff"
 alias gdH="git diff HEAD"
 alias gst="git status"
 
-alias gi='ghi list -g -f assigned'
+alias gia='ghi list -g -f assigned'
+alias gin="ghi list -g | grep  $(date '+%Y')"
 
 alias bi='brew install'
 alias brews='brew list -1'
