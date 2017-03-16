@@ -34,6 +34,8 @@ export VISUAL=$EDITOR
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR=~/.nvm
 
+eval "$(rbenv init -)"
+
 # #######
 # aliases
 # #######
