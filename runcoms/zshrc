@@ -119,6 +119,7 @@ npm() {
   unset -f npm
   export NVM_DIR=~/.nvm
   source $(brew --prefix nvm)/nvm.sh
+  source <(npm completion)
   npm "$@"
 }
 
