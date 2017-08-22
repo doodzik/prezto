@@ -41,6 +41,7 @@ eval "$(rbenv init -)"
 # #######
 
 alias v=vim
+alias chx=chmod
 
 alias gaa="git add --all"
 alias gd="git diff"
