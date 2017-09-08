@@ -46,6 +46,8 @@ alias chx=chmod
 alias define='googler -n 2 define'
 alias go=googler
 
+alias ga="git add"
+alias gC="git checkout --"
 alias gaa="git add --all"
 alias gd="git diff"
 alias gdH="git diff HEAD"
