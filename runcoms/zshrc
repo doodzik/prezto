@@ -25,6 +25,7 @@ PATHS=(
   /usr/sbin
   /sbin
   /Library/TeX/texbin/
+  $HOME/.fastlane/bin
 )
 
 export PATH=$(join : ${PATHS[@]})
@@ -52,6 +53,9 @@ alias gaa="git add --all"
 alias gd="git diff"
 alias gdH="git diff HEAD"
 alias gst="git status"
+gsync () {
+  git checkout "$1" && git pull && git checkout "$2" && git merge "$1"
+}
 
 alias gia='ghi list -g -f assigned'
 alias gin="ghi list -g | grep  $(date '+%Y')"
@@ -131,6 +135,4 @@ npm() {
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-
-export PATH="$HOME/.fastlane/bin:$PATH"
 
