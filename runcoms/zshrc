@@ -35,6 +35,8 @@ export VISUAL=$EDITOR
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR=~/.nvm
 
+export GPG_TTY=$(tty)
+
 eval "$(rbenv init -)"
 
 # #######
