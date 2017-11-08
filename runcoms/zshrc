@@ -51,6 +51,8 @@ alias go=googler
 
 alias ga="git add"
 alias gC="git checkout --"
+alias gc="git commit --verbose -S"
+alias gt="git tag -v"
 alias gaa="git add --all"
 alias gd="git diff"
 alias gdH="git diff HEAD"
