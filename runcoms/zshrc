@@ -149,7 +149,7 @@ npm() {
   npm "$@"
 }
 
-note() {
+notes() {
   # https://stackoverflow.com/questions/2180270/check-if-current-directory-is-a-git-repository
   [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1
   if [ ! $? -eq 0 ]; then
@@ -162,12 +162,13 @@ note() {
     return 1
   fi
 
-  local notes_location="~/iCloud/.notes"
-  local git_first_commit_sha=$(git rev-list --parents HEAD | tail -1)
-  local path_to_node="${notes_location}/${git_first_commit_sha}.txt"
+  local notes_location="${HOME}/iCloud/.notes"
+  local git_first_commit_hash=$(git rev-list --max-parents=0 HEAD)
+  local path_to_node="${notes_location}/${git_first_commit_hash}.txt"
   mkdir -p "$notes_location"
   $EDITOR "$path_to_node"
 }
+alias note=notes
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
