@@ -40,7 +40,19 @@ export GPG_TTY=$(tty)
 eval "$(rbenv init -)"
 
 # #######
-# aliases
+# History
+# #######
+
+# Reference: https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+
+export HISTCONTROL=ignoredups:erasedups  # avoid duplicate entries
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# #######
+# Aliases
 # #######
 
 alias v=vim
@@ -92,7 +104,7 @@ alias ns="npm start"
 alias nt="npm test"
 
 # ############
-# autocomplete
+# Autocomplete
 # ############
 
 autoload bashcompinit
@@ -107,10 +119,6 @@ complete -F _rmapp_app_list rmapp
 function take() {
   mkdir -p $1
   cd $1
-}
-
-function zsh_stats() {
-    fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 }
 
 function clone() {
