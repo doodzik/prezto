@@ -166,6 +166,11 @@ notes() {
   local git_first_commit_hash=$(git rev-list --max-parents=0 HEAD)
   local path_to_node="${notes_location}/${git_first_commit_hash}.txt"
   mkdir -p "$notes_location"
+  if [ ! -f "$path_to_node" ]; then
+    echo -n "# " > "$path_to_node" 
+    basename `git rev-parse --show-toplevel` >> "$path_to_node" 
+    echo "\n" >> "$path_to_node" 
+  fi
   $EDITOR "$path_to_node"
 }
 alias note=notes
