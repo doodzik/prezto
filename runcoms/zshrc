@@ -34,6 +34,7 @@ export EDITOR="/usr/local/bin/vim"
 export VISUAL=$EDITOR
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR=~/.nvm
+export NOTES_LOCATION="$HOME/iCloud/.notes"
 
 export GPG_TTY=$(tty)
 
@@ -148,38 +149,6 @@ npm() {
   source <(npm completion)
   npm "$@"
 }
-
-notes() {
-  if [ -n "$1" ]; then
-    cd "$1"
-  fi
-  # https://stackoverflow.com/questions/2180270/check-if-current-directory-is-a-git-repository
-  [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1
-  if [ ! $? -eq 0 ]; then
-    echo "Make sure that you are in a directory that is tracked by git"
-    return 1
-  fi
-  git log > /dev/null 2>&1
-  if [ ! $? -eq 0 ]; then
-    echo "To add a note a repo it has to have at least one commit"
-    return 1
-  fi
-
-  local notes_location="${HOME}/iCloud/.notes"
-  local git_first_commit_hash=$(git rev-list --max-parents=0 HEAD)
-  local path_to_node="${notes_location}/${git_first_commit_hash}.txt"
-  mkdir -p "$notes_location"
-  if [ ! -f "$path_to_node" ]; then
-    echo -n "# " > "$path_to_node" 
-    basename `git rev-parse --show-toplevel` >> "$path_to_node" 
-    echo "\n" >> "$path_to_node" 
-  fi
-  if [ -n "$1" ]; then
-    cd -
-  fi
-  $EDITOR "$path_to_node"
-}
-alias note=notes
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
