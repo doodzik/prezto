@@ -150,6 +150,9 @@ npm() {
 }
 
 notes() {
+  if [ -n "$1" ]; then
+    cd "$1"
+  fi
   # https://stackoverflow.com/questions/2180270/check-if-current-directory-is-a-git-repository
   [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1
   if [ ! $? -eq 0 ]; then
@@ -170,6 +173,9 @@ notes() {
     echo -n "# " > "$path_to_node" 
     basename `git rev-parse --show-toplevel` >> "$path_to_node" 
     echo "\n" >> "$path_to_node" 
+  fi
+  if [ -n "$1" ]; then
+    cd -
   fi
   $EDITOR "$path_to_node"
 }
