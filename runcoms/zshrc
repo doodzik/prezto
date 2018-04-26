@@ -63,8 +63,8 @@ alias define='googler -n 2 define'
 alias go=googler
 
 alias ga="git add"
+alias gA="git commit --amend"
 alias gC="git checkout --"
-alias gc="git commit --verbose -m "
 alias gt="git tag -v"
 alias gaa="git add --all"
 alias gd="git diff"
@@ -72,6 +72,15 @@ alias gdH="git diff HEAD"
 alias gst="git status"
 gsync () {
   git checkout "$1" && git pull && git checkout "$2" && git merge "$1"
+}
+unalias gc
+gc () {
+  if [[ $# -eq 0 ]]; then
+    git commit --verbose
+  else
+    message="$*"
+    git commit --verbose -m "$message"
+  fi
 }
 
 alias gia='ghi list -g -f assigned'
