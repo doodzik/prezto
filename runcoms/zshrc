@@ -15,8 +15,16 @@ fi
 # VARIABLES
 # #########
 
+export EDITOR="/usr/local/bin/vim"
+export VISUAL=$EDITOR
+export MANPATH="/usr/local/man:$MANPATH"
+export NVM_DIR=~/.nvm
+export NOTES_LOCATION="$HOME/iCloud/.notes"
+export GPG_TTY=$(tty)
+export ANDROID_SDK="$HOME/Library/Android/sdk"
+export GOPATH=$HOME
+
 PATHS=(
-  $HOME/.rbenv/shims
   $HOME/.yarn/bin
   /usr/local/bin
   /usr/local/sbin
@@ -27,19 +35,10 @@ PATHS=(
   /Library/TeX/texbin/
   $HOME/.fastlane/bin
   $HOME/Library/Android/sdk/platform-tools
+  $GOPATH/bin
 )
 
 export PATH=$(join : ${PATHS[@]})
-
-export EDITOR="/usr/local/bin/vim"
-export VISUAL=$EDITOR
-export MANPATH="/usr/local/man:$MANPATH"
-export NVM_DIR=~/.nvm
-export NOTES_LOCATION="$HOME/iCloud/.notes"
-export GPG_TTY=$(tty)
-export ANDROID_SDK="$HOME/Library/Android/sdk"
-
-eval "$(rbenv init -)"
 
 # #######
 # History
