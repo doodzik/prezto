@@ -23,6 +23,7 @@ export NOTES_LOCATION="$HOME/iCloud/.notes"
 export GPG_TTY=$(tty)
 export ANDROID_SDK="$HOME/Library/Android/sdk"
 export GOPATH=$HOME
+export BREWPATH="/opt/homebrew"
 
 PATHS=(
   $HOME/.yarn/bin
@@ -36,6 +37,7 @@ PATHS=(
   $HOME/.fastlane/bin
   $HOME/Library/Android/sdk/platform-tools
   $GOPATH/bin
+  $BREWPATH/bin
 )
 
 export PATH=$(join : ${PATHS[@]})
